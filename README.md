@@ -18,6 +18,9 @@ https://www.computeruniverse.ru/groups/p0/30000532/
     </tr>
 </table>
 
+# Requirements:
+- [Html Agility Pack ](http://www.nuget.org/packages/HtmlAgilityPack)
+
 # Usage:
 * Put the *number of pages* to parse in first input
 * Put *product type id* in second input

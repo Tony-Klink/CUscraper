@@ -20,6 +20,7 @@ https://www.computeruniverse.ru/groups/p0/30000532/
 
 # Requirements:
 - [Html Agility Pack ](http://www.nuget.org/packages/HtmlAgilityPack)
+- [FileHelpers](https://www.nuget.org/packages/FileHelpers)
 
 # Usage:
 * Put the *number of pages* to parse in first input

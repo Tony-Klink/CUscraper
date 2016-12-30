@@ -7,13 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using FileHelpers;
 
 namespace CUscraper
 {
     public partial class Form1 : Form
     {
         DataTable table;
-
+        List<shopItem> data;
 
         public Form1()
         {
@@ -51,7 +52,7 @@ namespace CUscraper
             table.Clear();
             try
             {
-                var data = await a.GetItemsFromPage(ToInteger(textBox1.Text), ToInteger(textBox2.Text));                
+                data = await a.GetItemsFromPage(ToInteger(textBox1.Text), ToInteger(textBox2.Text));                
                 foreach (var item in data)
                 {
                     table.Rows.Add(item.Name, item.URL, item.Description, item.Image, item.Price);
@@ -79,6 +80,31 @@ namespace CUscraper
                 MessageBox.Show("Wrong type of input!\n" + err.ToString(), "Null reference error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             return x;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            var engine = new FileHelperEngine<shopItem>();
+            using (SaveFileDialog dialog = new SaveFileDialog())
+            {
+                dialog.Filter = "csv files (*.csv)|*.csv|All files (*.*)|*.*";
+                dialog.FilterIndex = 2;
+                dialog.RestoreDirectory = true;
+
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    if(data == null)
+                    {
+                        MessageBox.Show("Table is empty\n", "Null reference error", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                    }
+                    else
+                    {
+                        engine.WriteFile(dialog.FileName, data);
+                    }                    
+                }
+            }
+            
+
         }
     }
 }
